@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="An Elasticsearch public cloud service , provides Simple Reliable and Professional search-services for enterprises.
+
+">
+    <title>ZSearch - Cloud Search </title>
+    <link rel="icon" href="https://gw.alipayobjects.com/mdn/rms_efc0e3/afts/img/A*OOKpR7EmECEAAAAAAAAAAABjARQnAQ" type="image/x-icon">
+    <link rel="shortcut icon" href="https://gw.alipayobjects.com/mdn/rms_efc0e3/afts/img/A*OOKpR7EmECEAAAAAAAAAAABjARQnAQ" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="/index-132e2ae5-1.css"/>
+    <link rel="stylesheet" type="text/css" href="/index-132e2ae5-2.css"/>
+    
+    <style id="nprogress-style">
+      #nprogress { display: none }
+    </style>
+    <link rel="stylesheet/less" type="text/css" href="/color.less"/>
+    <script src="https://gw.alipayobjects.com/os/lib/es6-shim/0.35.5/??es6-sham.min.js,es6-shim.min.js"></script>
+    <!--[if lte IE 10]>
+    <script src="https://as.alipayobjects.com/g/component/??console-polyfill/0.2.2/index.js,media-match/2.0.2/media.match.min.js"></script>
+    <![endif]-->
+    <script src="https://as.alipayobjects.com/g/component/intl/1.0.1/??Intl.min.js,locale-data/jsonp/en.js,locale-data/jsonp/zh.js"></script>
+    <script>
+    (function() {
+      function isLocalStorageNameSupported() {
+        var testKey = 'test';
+        var storage = window.localStorage;
+        try {
+          storage.setItem(testKey, '1');
+          storage.removeItem(testKey);
+          return true;
+        } catch (error) {
+          return false;
+        }
+      }
+      // 优先级提高到所有静态资源的前面，语言不对，加载其他静态资源没意义
+      var pathname = location.pathname;
+
+      function isZhCN(pathname) {
+        return /-cn\/?$/.test(pathname);
+      }
+      function getLocalizedPathname(path, zhCN) {
+        var pathname = path.startsWith('/') ? path : '/' + path;
+        if (!zhCN) { // to enUS
+          return /\/?index-cn/.test(pathname) ? '/' : pathname.replace('-cn', '');
+        } else if (pathname === '/') {
+          return '/index-cn';
+        } else if (pathname.endsWith('/')) {
+          return pathname.replace(/\/$/, '-cn/');
+        }
+        return pathname + '-cn';
+      }
+
+      // 兼容旧的 URL， `?locale=...`
+      var queryString = location.search;
+      if (queryString) {
+        var isZhCNConfig = queryString.indexOf('zh-CN') > -1;
+        if (isZhCNConfig && !isZhCN(pathname)) {
+          location.pathname = getLocalizedPathname(pathname, isZhCNConfig)
+        }
+      }
+
+      if (isLocalStorageNameSupported() && (pathname === '/' || pathname === '/index-cn')) {
+        var lang = (window.localStorage && localStorage.getItem('locale')) || ((navigator.language || navigator.browserLanguage).toLowerCase() === 'zh-cn' ? 'zh-CN' : 'en-US');
+        // safari is 'zh-cn', while other browser is 'zh-CN';
+        if ((lang === 'zh-CN') !== isZhCN(pathname)) {
+          location.pathname = getLocalizedPathname(pathname, lang === 'zh-CN');
+        }
+      }
+      document.documentElement.className += isZhCN(pathname) ? 'zh-cn' : 'en-us';
+    })()
+    </script>
+  </head>
+  <body>
+    <div id="react-content">
+      <div class="page-wrapper" data-reactroot=""><header id="header" class="clearfix"><div class="ant-row"><div class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-5 ant-col-lg-5 ant-col-xl-5 ant-col-xxl-4"><a id="logo" href="/"><img alt="logo" src="https://gw.alipayobjects.com/mdn/rms_efc0e3/afts/img/A*OOKpR7EmECEAAAAAAAAAAABjARQnAQ"/><img alt="ZSearch" src="https://gw.alipayobjects.com/zos/basement_prod/6b9b339a-48f5-4af6-8cde-1ff57d1d2bb2.svg"/></a></div><div class="ant-col ant-col-xs-0 ant-col-sm-0 ant-col-md-19 ant-col-lg-19 ant-col-xl-19 ant-col-xxl-20"><ul class="ant-menu menu-site ant-menu-light ant-menu-root ant-menu-horizontal" id="nav" role="menu"><li class="ant-menu-submenu ant-menu-submenu-horizontal ant-menu-overflowed-submenu" style="display:none" role="menuitem"><div class="ant-menu-submenu-title" aria-expanded="false" aria-haspopup="true"><span>···</span><i class="ant-menu-submenu-arrow"></i></div></li><li class="ant-menu-item hide-in-home-page" role="menuitem"><a href="/"><span>Home</span></a></li><li class="ant-menu-submenu ant-menu-submenu-horizontal ant-menu-overflowed-submenu" style="display:none" role="menuitem"><div class="ant-menu-submenu-title" aria-expanded="false" aria-haspopup="true"><span>···</span><i class="ant-menu-submenu-arrow"></i></div></li><li class="ant-menu-item" role="menuitem"><a href="/docs/product/intro-open">产品</a></li><li class="ant-menu-submenu ant-menu-submenu-horizontal ant-menu-overflowed-submenu" style="display:none" role="menuitem"><div class="ant-menu-submenu-title" aria-expanded="false" aria-haspopup="true"><span>···</span><i class="ant-menu-submenu-arrow"></i></div></li><li class="ant-menu-item ant-menu-item-selected" role="menuitem"><a href="/docs/usage/connect">使用</a></li><li class="ant-menu-submenu ant-menu-submenu-horizontal ant-menu-overflowed-submenu" style="display:none" role="menuitem"><div class="ant-menu-submenu-title" aria-expanded="false" aria-haspopup="true"><span>···</span><i class="ant-menu-submenu-arrow"></i></div></li><li class="ant-menu-item" role="menuitem"><a href="/docs/product/price">价格</a></li><li class="ant-menu-submenu ant-menu-submenu-horizontal ant-menu-overflowed-submenu" style="display:none" role="menuitem"><div class="ant-menu-submenu-title" aria-expanded="false" aria-haspopup="true"><span>···</span><i class="ant-menu-submenu-arrow"></i></div></li><li class="ant-menu-item" role="menuitem"><a href="/docs/product/help">帮助</a></li><li class="ant-menu-submenu ant-menu-submenu-horizontal ant-menu-overflowed-submenu" style="display:none" role="menuitem"><div class="ant-menu-submenu-title" aria-expanded="false" aria-haspopup="true"><span>···</span><i class="ant-menu-submenu-arrow"></i></div></li><li class="ant-menu-item" role="menuitem"><a href="https://zsearch.cloud.alipay.com">控制台</a></li><li class="ant-menu-submenu ant-menu-submenu-horizontal ant-menu-overflowed-submenu" style="visibility:hidden;position:absolute" role="menuitem"><div class="ant-menu-submenu-title" aria-expanded="false" aria-haspopup="true"><span>···</span><i class="ant-menu-submenu-arrow"></i></div></li></ul></div></div></header><div class="main-wrapper"><div class="ant-row"><div class="ant-col main-menu ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-6 ant-col-xl-5 ant-col-xxl-4"><div><div class=""><section class="main-menu-inner"><ul class="ant-menu aside-container menu-site ant-menu-light ant-menu-root ant-menu-inline" role="menu"><li class="ant-menu-submenu ant-menu-submenu-inline ant-menu-submenu-open ant-menu-submenu-selected" role="menuitem"><div style="padding-left:40px" class="ant-menu-submenu-title" aria-expanded="true" aria-owns="生态$Menu" aria-haspopup="true"><h4>生态</h4><i class="ant-menu-submenu-arrow"></i></div><ul id="生态$Menu" class="ant-menu  ant-menu-sub ant-menu-inline" role="menu"><li class="ant-menu-item" role="menuitem" style="padding-left:80px"><a href="/docs/usage/connect"><span>连接</span><span class="chinese">connect</span></a></li><li class="ant-menu-item" role="menuitem" style="padding-left:80px"><a href="/docs/usage/kibana"><span>Kibana</span><span class="chinese">可视化分析</span></a></li><li class="ant-menu-item" role="menuitem" style="padding-left:80px"><a href="/docs/usage/grafana"><span>Grafana</span><span class="chinese">时序数据面板</span></a></li><li class="ant-menu-item" role="menuitem" style="padding-left:80px"><a href="/docs/usage/logstash"><span>Logstash</span><span class="chinese">管道处理</span></a></li><li class="ant-menu-item ant-menu-item-selected" role="menuitem" style="padding-left:80px"><a href="/docs/usage/file-beats"><span>File Beat</span><span class="chinese">文件数据采集</span></a></li><li class="ant-menu-item" role="menuitem" style="padding-left:80px"><a href="/docs/usage/metric-beats"><span>Metric Beat</span><span class="chinese">度量数据采集</span></a></li><li class="ant-menu-item" role="menuitem" style="padding-left:80px"><a href="/docs/usage/other-beats"><span>Other Beat</span><span class="chinese">其他采集工具</span></a></li></ul></li><li class="ant-menu-submenu ant-menu-submenu-inline ant-menu-submenu-open" role="menuitem"><div style="padding-left:40px" class="ant-menu-submenu-title" aria-expanded="true" aria-owns="API扩展$Menu" aria-haspopup="true"><h4>API扩展</h4><i class="ant-menu-submenu-arrow"></i></div><ul id="API扩展$Menu" class="ant-menu  ant-menu-sub ant-menu-inline" role="menu"><li class="ant-menu-item" role="menuitem" style="padding-left:80px"><a href="/docs/usage/es-join"><span>JoinedQuery (Beta)</span><span class="chinese"></span></a></li><li class="ant-menu-item" role="menuitem" style="padding-left:80px"><a href="/docs/usage/es-ranked"><span>RankedQuery</span><span class="chinese">自定义排位</span></a></li><li class="ant-menu-item" role="menuitem" style="padding-left:80px"><a href="/docs/usage/es-roxima"><span>ProximaQuery</span><span class="chinese">向量检索</span></a></li></ul></li><li class="ant-menu-item" role="menuitem" style="padding-left:40px"><a href="/docs/usage/faq">FAQ</a></li></ul></section></div></div></div><div class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-18 ant-col-xl-19 ant-col-xxl-20"><section class="main-container"><article class="markdown"><div data-show="true" class="ant-alert ant-alert-warning ant-alert-no-icon"><span class="ant-alert-message"><span>This article has not been translated yet. Wanna help us out? <a href="https://github.com/ant-design/ant-design/issues/1471">See this issue on GitHub.</a></span></span><span class="ant-alert-description"></span></div><h1>File Beat</h1><div class="toc-affix"><div class=""><ul class="toc"><li><a class="bisheng-toc-h2" href="#接入方法" title="接入方法">接入方法</a></li><li><a class="bisheng-toc-h2" href="#注意事项" title="注意事项">注意事项</a></li></ul></div></div><section class="markdown"><p>Filebeat 是 Elastic 公司推出的一款轻量数据采集工具。与 logstash 不同的是，Filebeat 的日志结构化是放在Elasticsearch 的 ingest 节点进行的。因此 Filebeat agent 的负载更低，压力更小。使用 FileBeat 接入蚂蚁 ZSearch 和普通 Elaticsearch 的主要差异在于 ZSearch 目前不支持自动建表，所以需要关闭模板，采用手动建表方式创建索引，然后再写入。</p><h2 id="接入方法"><span>接入方法</span><a href="#接入方法" class="anchor">#</a></h2><p>FileBeat 接入 ZSearch 主要包括以下步骤：</p><ol><li><p>创建日志型表</p></li><li><p>编辑 Filebeat 配置</p></li><li><p>启动 Filebeat</p></li></ol><h3 id="创建日志型表"><span>创建日志型表</span><a href="#创建日志型表" class="anchor">#</a></h3><p><strong>说明</strong>：表名支持自定义，本文以 <code>filebeat_log</code> 为例。</p><ol><li><p>导出 Filebeat 模板 (如果自行修改了 fields 文件，则需在配置中指定 <strong>setup.template.fields</strong>: &quot;fields.yml&quot; 方可生效)</p></li><li><p>MacOS 系统，运行以下命令：</p></li></ol><pre class="language-null"><code><span class="token punctuation">.</span><span class="token operator">/</span>filebeat export template <span class="token operator">></span> filebeat<span class="token punctuation">.</span>template<span class="token punctuation">.</span>json</code></pre><ul><li><p>如用 Docker，可以运行以下命令：</p></li></ul><pre class="language-null"><code>docker run docker<span class="token punctuation">.</span>elastic<span class="token punctuation">.</span>co<span class="token operator">/</span>beats<span class="token operator">/</span>filebeat<span class="token punctuation">:</span><span class="token number">6.6</span><span class="token punctuation">.</span><span class="token number">0</span> export template <span class="token operator">></span> filebeat<span class="token punctuation">.</span>template<span class="token punctuation">.</span>json</code></pre><ul><li><p>其他环境下的导出方式，参见 <a href="https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-template.html#load-template-manually-alternate">导出 Filebeat 模板</a>。</p></li><li><p>编辑导出的 <code>filebeat.template.json</code> 文件。</p></li><li><p>增加 <code>&quot;settings.keep_days&quot;:7</code> ，7 为保留天数，可自行设置。</p></li><li><p>（可选）删去 <code>index_patterns</code> 和 <code>order</code>。</p></li><li><p>创建表，以 Shell 为例，运行以下命令：</p></li></ul><pre class="language-shell"><code>curl <span class="token operator">-</span>XPUT <span class="token operator">-</span>u <span class="token variable">$username</span><span class="token punctuation">:</span><span class="token variable">$password</span> <span class="token operator">-</span>H <span class="token string">"Content-Type: application/json"</span> <span class="token variable">$api</span><span class="token operator">/</span>filebeat_log <span class="token operator">-</span>d <span class="token variable">@filebeat</span><span class="token punctuation">.</span>template<span class="token punctuation">.</span>json</code></pre><ol><li><p><strong>说明</strong>：</p></li><li><p>其中 username、password 与 api，可以在 ZSearch 控制台应用详情页获得。</p></li><li><p>返回  <code>&quot;acknowledged&quot;:true</code> 即为成功。</p></li><li><p>运行成功后，即可在 应用详情页 &gt; 索引列表 中看到 <code>filebeat_log</code> 表。<br/>
+<img src="https://cdn.nlark.com/yuque/0/2019/png/163907/1557110328780-1782b265-38d1-48a1-ba75-bef27afb565a.png#align=left&amp;display=inline&amp;height=1352&amp;originHeight=1352&amp;originWidth=2508&amp;size=0&amp;status=done&amp;width=2508"/></p></li></ol><h3 id="编辑-Filebeat-配置"><span>编辑 Filebeat 配置</span><a href="#编辑-Filebeat-配置" class="anchor">#</a></h3><ol><li><p>执行 <code>setup.template.enabled: false</code>，关闭模板。</p></li><li><p>配置相关参数：</p></li><li><p>hosts：即 ZSearch 控制台上的 API 地址去掉 &quot;http(https)&quot; 前缀</p></li><li><p>protocol：即 API 的前缀 （http 或 https）</p></li><li><p>username：等同于控制台上的用户名</p></li><li><p>password：等同于控制台上的密码</p></li><li><p>index：即刚刚创建的表名，本文示例为 <code>filebeat_log</code>。</p></li></ol><pre class="language-yaml"><code><span class="token key atrule">output.elasticsearch</span><span class="token punctuation">:</span>
+  <span class="token key atrule">hosts</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"zsearch.cloud.alipay.com:9999"</span><span class="token punctuation">]</span>
+  <span class="token key atrule">protocol</span><span class="token punctuation">:</span> <span class="token string">"http"</span>
+  <span class="token key atrule">username</span><span class="token punctuation">:</span> <span class="token string">"example"</span>
+  <span class="token key atrule">password</span><span class="token punctuation">:</span> <span class="token string">"example_password"</span>
+  <span class="token key atrule">index</span><span class="token punctuation">:</span> <span class="token string">"filebeat_log"</span></code></pre><p>3.（可选）如要配置 Kibana 图表，具体参数如下：</p><ul><li><p>host：即控制台域名地址</p></li><li><p>protocol：即控制台的 scheme</p></li><li><p>path：即 <code>/kibana</code></p></li><li><p>username：等同于控制台上的用户名</p></li><li><p>password：等同于控制台上的密码</p></li></ul><pre class="language-yaml"><code><span class="token key atrule">setup.kibana</span><span class="token punctuation">:</span>
+  <span class="token key atrule">host</span><span class="token punctuation">:</span> <span class="token string">"zsearch.cloud.alipay.com"</span>
+  <span class="token key atrule">protocol</span><span class="token punctuation">:</span> <span class="token string">"http"</span>
+  <span class="token key atrule">path</span><span class="token punctuation">:</span> <span class="token string">"/kibana"</span>
+  <span class="token key atrule">username</span><span class="token punctuation">:</span> <span class="token string">"example"</span>
+  <span class="token key atrule">password</span><span class="token punctuation">:</span> <span class="token string">"example_password"</span>
+<span class="token key atrule">setup.dashboards.enabled</span><span class="token punctuation">:</span> <span class="token boolean important">true </span><span class="token comment" spellcheck="true">#每次启动都加载一次 dashboard，也可以关闭，手动`setup --dashboards`加载</span>
+<span class="token key atrule">setup.dashboards.index</span><span class="token punctuation">:</span> <span class="token string">"filebeat_log"</span> <span class="token comment" spellcheck="true">#和上面 output.elasticsearch.index 的表名一样</span></code></pre><h3 id="启动-Filebeat"><span>启动 Filebeat</span><a href="#启动-Filebeat" class="anchor">#</a></h3><ul><li><p>MacOS 系统，运行以下命令：</p></li></ul><pre class="language-null"><code>sudo <span class="token punctuation">.</span><span class="token operator">/</span>filebeat <span class="token operator">-</span>e</code></pre><ul><li><p>其他环境的启动方式，参见 <a href="https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-starting.html#filebeat-starting">启动 Filebeat</a>。</p></li></ul><h2 id="注意事项"><span>注意事项</span><a href="#注意事项" class="anchor">#</a></h2><ul><li><p>Filebeat 通过不同的 module 采集不同的日志，官方提供了多种 module。详见 <a href="https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-modules.html">Filebeat  module</a>。</p></li><li><p>每个 module 均有自己的配置，存放在 <code>modules.d</code> 文件夹下。配置中表明了日志位置。如果文件名结尾为 <code>.disabled</code> 则表示该 module 未启用。Filebeat 每次启动时，会自动检测 <code>moudles.d</code> 文件夹以获取启用的 module 配置。</p></li><li><p>如需自己添加 module，则只需模仿现有 module 在 <code>modules</code> 和 <code>models.d</code> 下添加相应文件即可。</p></li></ul></section><section class="markdown api-container"></section></article></section><section class="prev-next-nav"><a class="prev-page" href="/docs/usage/logstash"><i aria-label="icon: left" class="anticon anticon-left footer-nav-icon-before"><svg viewBox="64 64 896 896" class="" data-icon="left" width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false"><path d="M724 218.3V141c0-6.7-7.7-10.4-12.9-6.3L260.3 486.8a31.86 31.86 0 0 0 0 50.3l450.8 352.1c5.3 4.1 12.9.4 12.9-6.3v-77.3c0-4.9-2.3-9.6-6.1-12.6l-360-281 360-281.1c3.8-3 6.1-7.7 6.1-12.6z"></path></svg></i><span>Logstash</span><span class="chinese">管道处理</span><i aria-label="icon: right" class="anticon anticon-right footer-nav-icon-after"><svg viewBox="64 64 896 896" class="" data-icon="right" width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false"><path d="M765.7 486.8L314.9 134.7A7.97 7.97 0 0 0 302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 0 0 0-50.4z"></path></svg></i></a><a class="next-page" href="/docs/usage/metric-beats"><i aria-label="icon: left" class="anticon anticon-left footer-nav-icon-before"><svg viewBox="64 64 896 896" class="" data-icon="left" width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false"><path d="M724 218.3V141c0-6.7-7.7-10.4-12.9-6.3L260.3 486.8a31.86 31.86 0 0 0 0 50.3l450.8 352.1c5.3 4.1 12.9.4 12.9-6.3v-77.3c0-4.9-2.3-9.6-6.1-12.6l-360-281 360-281.1c3.8-3 6.1-7.7 6.1-12.6z"></path></svg></i><span>Metric Beat</span><span class="chinese">度量数据采集</span><i aria-label="icon: right" class="anticon anticon-right footer-nav-icon-after"><svg viewBox="64 64 896 896" class="" data-icon="right" width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false"><path d="M765.7 486.8L314.9 134.7A7.97 7.97 0 0 0 302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 0 0 0-50.4z"></path></svg></i></a></section><footer id="footer"><div class="footer-wrap"><div class="ant-row" style="margin-left:-8px;margin-right:-8px"><div style="padding-left:8px;padding-right:8px" class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-6"><div class="footer-center"><h2><span>Resources</span></h2><div><a href="https://www.elastic.co/cn/">Elasticsearch</a><span> - </span>官网</div><div><a href="https://www.elastic.co/cn/products/beats">Beats</a><span> - </span>日志收集工具</div><div><a href="https://www.elastic.co/cn/products/logstash">Logstash</a><span> - </span>数据管道</div><div><a href="https://www.elastic.co/cn/products/kibana">Kibana</a><span> - </span>可视化展示</div><div><a href="https://grafana.com/">Grafana</a><span> - </span>时序监控面板</div></div></div><div style="padding-left:8px;padding-right:8px" class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-6"><div class="footer-center"><h2><span>Community</span></h2><div><a rel="noopener noreferrer" href="https://elasticsearch.cn/">Elasticsearch 中文站</a></div><div><a rel="noopener noreferrer" href="https://www.elastic.co/guide/en/elasticsearch/reference/6.6/index.html">Elasticsearch Reference</a></div><div><a>ZSearch 专栏</a><span> - </span>待建设</div><div><a><span>Work with Us</span></a><span> - </span>待建设</div></div></div><div style="padding-left:8px;padding-right:8px" class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-6"><div class="footer-center"><h2><span>Help</span></h2><div><a rel="noopener noreferrer" href="/docs/product/intro-quick-cn">快速开始</a></div><div><a rel="noopener noreferrer" href="/docs/usage/faq-cn">常见问题</a></div><div><a rel="noopener noreferrer" href="/docs/product/help-cn">在线帮助</a></div></div></div><div style="padding-left:8px;padding-right:8px" class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-6"><div class="footer-center"><h2><img class="title-icon" src="https://gw.alipayobjects.com/zos/basement_prod/dc740028-449e-4fea-b90f-0f25de80fe8e.svg" alt="AFX Cloud"/><span>More Products</span></h2><div><a rel="noopener noreferrer" href="https://tech.antfin.com/products/MS">SOFA Mesh</a><span> - </span>微服务平台</div><div><a rel="noopener noreferrer" href="https://tech.antfin.com/products/OCEANBASE">OceanBase</a><span> - </span>分布式关系数据库</div><div><a rel="noopener noreferrer" href="https://tech.antfin.com/products/DTX">Seata</a><span> - </span>分布式事务</div><div><a rel="noopener noreferrer" href="https://tech.antfin.com/products/MPAAS">mPaaS</a><span> - </span>移动开发平台</div></div></div></div></div><div class="bottom-bar">蚂蚁金服 | 金融科技</div></footer></div></div></div></div>
+    </div>
+    <script src="/index-e3aeb897.js"></script>
+    
+    <!-- Global Site Tag (gtag.js) - Google Analytics
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-72788897-1"></script>
+    <script>
+    if (!location.port) {
+      // Enable Google Analytics
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-72788897-1');
+    }
+    </script>
+    -->
+    <!-- Hotjar Tracking Code
+    <script>
+    (function(h,o,t,j,a,r){
+      h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+      h._hjSettings={hjid:473408,hjsv:5};
+      a=o.getElementsByTagName('head')[0];
+      r=o.createElement('script');r.async=1;
+      r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+      a.appendChild(r);
+    })(window,document,'//static.hotjar.com/c/hotjar-','.js?sv=');
+    </script>
+    -->
+  </body>
+</html>
