@@ -1,0 +1,1 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([[34],{BnMp:function(n,t,e){"use strict";e.r(t);var a=e("q1tI"),c=e.n(a),o=e("9kvl"),u=function(n){var t=n.dispatch;return Object(a["useEffect"])((function(){t&&t({type:"login/logout"})}),[]),c.a.createElement(c.a.Fragment,null)};t["default"]=Object(o["a"])()(u)}}]);
